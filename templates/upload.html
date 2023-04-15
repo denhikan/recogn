@@ -1,0 +1,30 @@
+{% extends './base.html' %}
+{% block content %}
+    {% load static %}
+    <div class="container">
+    <div class="text_container">
+        <h2>Распознай<br>Знак</h2>
+        <p>Нечего подобного вы еще не пробовали. Наш сайт предоставит вам возможность
+            распознать дорожный знак относящийся к знаку дорожному движения 3.24.
+            Классификация будет происходить посредством использования библиотеки TenserFlow</p>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="image" class="btn btn__width" accept="image/*" style="font-size: 1.25rem;"><br><br>
+            <input type="submit" class="btn" value="Распознать">
+            {% if uploaded_file_url %}
+                <div>
+                    <p style="font-size: 1.3rem; font-weight: 600;border-bottom: 2px solid;border-top: 2px solid; text-align: center;">
+                        Класс дорожного знака: {{ sign }}</p>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+    {% if uploaded_file_url %}
+        <div class="image_container">
+            <div class="imgbox">
+                <img src="{{ uploaded_file_url }}" alt="Загруженное изображение">
+            </div>
+            <span class="animblob"></span>
+        </div>
+    {% endif %}
+{% endblock %}
